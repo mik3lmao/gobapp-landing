@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GobApp Municipal | Plataforma de Gobierno Digital</title>
+  <meta name="description" content="Plataforma integral para la gestión de servicios públicos municipales. Transforma tu municipio con tecnología de punta.">
+  <meta property="og:title" content="GobApp Municipal">
+  <meta property="og:description" content="La gestión municipal del futuro, hoy.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    :root {
+      --primary: #00F5D4;
+      --secondary: #7B61FF;
+      --accent: #FF6B6B;
+      --dark: #0A0A0F;
+      --darker: #050508;
+      --light: #FAFAFA;
+      --gray: #8892A0;
+      --gradient-1: linear-gradient(135deg, #00F5D4 0%, #00BBF9 50%, #7B61FF 100%);
+      --gradient-2: linear-gradient(135deg, #7B61FF 0%, #FF6B6B 100%);
+    }
+    
+    html { scroll-behavior: smooth; }
+    
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--dark);
+      color: var(--light);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+    
+    /* Navigation */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 1.5rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(10,10,15,0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      transition: all 0.3s;
+    }
+    
+    .nav.scrolled {
+      padding: 1rem 4rem;
+      background: rgba(5,5,8,0.95);
+    }
+    
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      background: var(--gradient-1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -1px;
+    }
+    
+    .logo span {
+      font-weight: 400;
+      opacity: 0.7;
+    }
+    
+    .nav-cta {
+      padding: 0.75rem 2rem;
+      background: var(--gradient-1);
+      border: none;
+      border-radius: 100px;
+      color: var(--dark);
+      font-weight: 600;
+      font-size: 0.9rem;
+      font-family: 'Outfit', sans-serif;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 40px rgba(0,245,212,0.3);
+    }
+    
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 8rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 30% 20%, rgba(0,245,212,0.15) 0%, transparent 40%),
+                  radial-gradient(circle at 70% 60%, rgba(123,97,255,0.1) 0%, transparent 40%),
+                  radial-gradient(circle at 50% 80%, rgba(255,107,107,0.08) 0%, transparent 30%);
+      animation: aurora 20s ease-in-out infinite;
+    }
+    
+    @keyframes aurora {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      25% { transform: translate(2%, 2%) rotate(1deg); }
+      50% { transform: translate(-1%, 3%) rotate(-1deg); }
+      75% { transform: translate(1%, -2%) rotate(0.5deg); }
+    }
+    
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1.25rem;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 100px;
+      font-size: 0.85rem;
+      color: var(--primary);
+      margin-bottom: 2rem;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.8s ease-out forwards;
+    }
+    
+    .hero-badge::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: var(--primary);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.2); }
+    }
+    
+    .hero-title {
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -3px;
+      margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.8s ease-out 0.1s forwards;
+    }
+    
+    .hero-title .gradient {
+      background: var(--gradient-1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .hero-subtitle {
+      font-size: clamp(1.1rem, 2vw, 1.4rem);
+      color: var(--gray);
+      max-width: 600px;
+      margin-bottom: 3rem;
+      font-weight: 400;
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.8s ease-out 0.2s forwards;
+    }
+    
+    @keyframes fadeInUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .hero-stats {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.8s ease-out 0.3s forwards;
+    }
+    
+    .stat-card {
+      text-align: center;
+      padding: 2rem;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      min-width: 180px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .stat-card:hover {
+      background: rgba(255,255,255,0.05);
+      border-color: var(--primary);
+      transform: translateY(-5px);
+      box-shadow: 0 20px 60px rgba(0,245,212,0.15);
+    }
+    
+    .stat-value {
+      font-size: 3.5rem;
+      font-weight: 800;
+      background: var(--gradient-1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+    
+    .stat-suffix {
+      font-size: 2rem;
+    }
+    
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--gray);
+      margin-top: 0.5rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    /* Section Styles */
+    section {
+      padding: 8rem 4rem;
+      position: relative;
+    }
+    
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 1rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s;
+    }
+    
+    .section-title {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800;
+      letter-spacing: -2px;
+      margin-bottom: 1.5rem;
+      line-height: 1.1;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s 0.1s;
+    }
+    
+    .section-subtitle {
+      font-size: 1.2rem;
+      color: var(--gray);
+      max-width: 600px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s 0.2s;
+    }
+    
+    .visible .section-label,
+    .visible .section-title,
+    .visible .section-subtitle {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Problem Section */
+    .problem-section {
+      background: linear-gradient(180deg, var(--dark) 0%, var(--darker) 100%);
+    }
+    
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 4rem;
+    }
+    
+    .problem-card {
+      padding: 2.5rem;
+      background: linear-gradient(135deg, rgba(255,107,107,0.05) 0%, rgba(255,107,107,0.02) 100%);
+      border: 1px solid rgba(255,107,107,0.2);
+      border-radius: 24px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    
+    .visible .problem-card {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .visible .problem-card:nth-child(1) { transition-delay: 0.1s; }
+    .visible .problem-card:nth-child(2) { transition-delay: 0.2s; }
+    .visible .problem-card:nth-child(3) { transition-delay: 0.3s; }
+    .visible .problem-card:nth-child(4) { transition-delay: 0.4s; }
+    
+    .problem-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--accent);
+      box-shadow: 0 30px 80px rgba(255,107,107,0.15);
+    }
+    
+    .problem-stat {
+      font-size: 4rem;
+      font-weight: 900;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+    
+    .problem-card h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+    
+    .problem-card p {
+      color: var(--gray);
+      font-size: 0.95rem;
+    }
+    
+    /* Solution Section */
+    .solution-section {
+      background: var(--darker);
+    }
+    
+    .solution-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 4rem;
+    }
+    
+    @media (max-width: 900px) {
+      .solution-grid { grid-template-columns: 1fr; }
+    }
+    
+    .solution-card {
+      padding: 3rem 2rem;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 100%);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px;
+      text-align: center;
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    
+    .visible .solution-card {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .visible .solution-card:nth-child(1) { transition-delay: 0.1s; }
+    .visible .solution-card:nth-child(2) { transition-delay: 0.2s; }
+    .visible .solution-card:nth-child(3) { transition-delay: 0.3s; }
+    
+    .solution-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--gradient-1);
+      transform: scaleX(0);
+      transition: transform 0.5s;
+    }
+    
+    .solution-card:hover::before {
+      transform: scaleX(1);
+    }
+    
+    .solution-card:hover {
+      transform: translateY(-10px);
+      border-color: rgba(0,245,212,0.3);
+      box-shadow: 0 40px 100px rgba(0,245,212,0.1);
+    }
+    
+    .solution-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 1.5rem;
+      background: var(--gradient-1);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+    }
+    
+    .solution-card h3 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    
+    .solution-card > p {
+      color: var(--gray);
+      margin-bottom: 1.5rem;
+    }
+    
+    .solution-features {
+      list-style: none;
+      text-align: left;
+    }
+    
+    .solution-features li {
+      padding: 0.5rem 0;
+      color: var(--gray);
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    
+    .solution-features li::before {
+      content: '→';
+      color: var(--primary);
+      font-weight: bold;
+    }
+    
+    /* Services Section */
+    .services-section {
+      background: linear-gradient(180deg, var(--darker) 0%, var(--dark) 100%);
+    }
+    
+    .services-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+    
+    .services-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background: rgba(123,97,255,0.1);
+      border: 1px solid rgba(123,97,255,0.3);
+      border-radius: 100px;
+      font-size: 0.9rem;
+      color: var(--secondary);
+    }
+    
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    .service-card {
+      padding: 2rem;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    
+    .visible .service-card {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .service-card:hover {
+      background: rgba(255,255,255,0.05);
+      border-color: var(--secondary);
+      transform: translateY(-5px) scale(1.02);
+    }
+    
+    .service-card.expanded {
+      background: rgba(123,97,255,0.1);
+      border-color: var(--secondary);
+    }
+    
+    .service-number {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--secondary);
+      margin-bottom: 1rem;
+    }
+    
+    .service-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .service-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    
+    .service-desc {
+      font-size: 0.9rem;
+      color: var(--gray);
+      margin-bottom: 1rem;
+    }
+    
+    .service-features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease-out;
+    }
+    
+    .service-card.expanded .service-features,
+    .service-card:hover .service-features {
+      max-height: 200px;
+    }
+    
+    .feature-tag {
+      padding: 0.35rem 0.75rem;
+      background: rgba(0,245,212,0.1);
+      border-radius: 100px;
+      font-size: 0.75rem;
+      color: var(--primary);
+    }
+    
+    .expand-indicator {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: var(--gray);
+      transition: transform 0.3s;
+    }
+    
+    .service-card.expanded .expand-indicator {
+      transform: rotate(45deg);
+    }
+    
+    /* Comparison Section */
+    .comparison-section {
+      background: var(--dark);
+    }
+    
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+      margin-top: 4rem;
+    }
+    
+    .comparison-card {
+      padding: 2.5rem;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px;
+      transition: all 0.4s;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    
+    .visible .comparison-card {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .comparison-card:hover {
+      border-color: rgba(255,255,255,0.15);
+    }
+    
+    .comparison-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .comparison-icon {
+      font-size: 2rem;
+    }
+    
+    .comparison-header h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+    
+    .toggle-container {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      padding: 0.25rem;
+      background: rgba(255,255,255,0.05);
+      border-radius: 100px;
+    }
+    
+    .toggle-btn {
+      flex: 1;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 100px;
+      background: transparent;
+      color: var(--gray);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .toggle-btn.active {
+      background: var(--gradient-1);
+      color: var(--dark);
+    }
+    
+    .comparison-content {
+      min-height: 80px;
+      transition: all 0.4s;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+    
+    .comparison-content.without {
+      color: var(--accent);
+      opacity: 0.9;
+    }
+    
+    .comparison-content.with {
+      color: var(--primary);
+    }
+    
+    .norms-badge {
+      margin-top: 1.5rem;
+      padding: 0.75rem 1rem;
+      background: rgba(0,245,212,0.1);
+      border-radius: 12px;
+      font-size: 0.85rem;
+      color: var(--primary);
+      display: none;
+      align-items: center;
+      gap: 0.5rem;
+      animation: fadeIn 0.3s ease-out;
+    }
+    
+    .norms-badge.visible {
+      display: flex;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .comparison-note {
+      margin-top: 3rem;
+      text-align: center;
+      color: var(--gray);
+      font-size: 0.95rem;
+    }
+    
+    .comparison-note span {
+      color: var(--primary);
+    }
+    
+    /* Success Section */
+    .success-section {
+      background: linear-gradient(180deg, var(--dark) 0%, var(--darker) 100%);
+      overflow: hidden;
+    }
+    
+    .success-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 3rem;
+      margin-top: 4rem;
+    }
+    
+    @media (max-width: 900px) {
+      .success-grid { grid-template-columns: 1fr; }
+    }
+    
+    .success-card {
+      padding: 3rem;
+      background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 100%);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 32px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.5s;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    
+    .visible .success-card {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .success-card:hover {
+      transform: translateY(-10px);
+      border-color: var(--primary);
+      box-shadow: 0 40px 100px rgba(0,245,212,0.1);
+    }
+    
+    .success-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 0% 0%, rgba(0,245,212,0.1) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+    
+    .success-card:hover::before {
+      opacity: 1;
+    }
+    
+    .success-location {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 0.5rem;
+      position: relative;
+    }
+    
+    .success-card h3 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+    
+    .success-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+    
+    .success-stat-item {
+      text-align: center;
+      padding: 1.5rem;
+      background: rgba(255,255,255,0.03);
+      border-radius: 16px;
+    }
+    
+    .success-stat-value {
+      font-size: 2rem;
+      font-weight: 800;
+      background: var(--gradient-1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .success-stat-label {
+      font-size: 0.8rem;
+      color: var(--gray);
+      margin-top: 0.25rem;
+    }
+    
+    .success-highlights {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      position: relative;
+    }
+    
+    .success-highlight {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.9rem;
+      color: var(--gray);
+    }
+    
+    .success-highlight::before {
+      content: '✓';
+      color: var(--primary);
+      font-weight: bold;
+    }
+    
+    /* Timeline Section */
+    .timeline-section {
+      background: var(--darker);
+      position: relative;
+    }
+    
+    .timeline-container {
+      display: flex;
+      gap: 2rem;
+      margin-top: 4rem;
+      overflow-x: auto;
+      padding-bottom: 2rem;
+    }
+    
+    .timeline-item {
+      flex: 1;
+      min-width: 250px;
+      position: relative;
+      padding-left: 4rem;
+      opacity: 0.4;
+      transition: all 0.5s;
+    }
+    
+    .timeline-item.active {
+      opacity: 1;
+    }
+    
+    .timeline-marker {
+      position: absolute;
+      left: 0;
+      top: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .timeline-icon {
+      width: 50px;
+      height: 50px;
+      background: rgba(255,255,255,0.05);
+      border: 2px solid rgba(255,255,255,0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      transition: all 0.5s;
+    }
+    
+    .timeline-item.active .timeline-icon {
+      background: var(--gradient-1);
+      border-color: var(--primary);
+      box-shadow: 0 0 30px rgba(0,245,212,0.4);
+    }
+    
+    .timeline-line {
+      width: 2px;
+      height: 100%;
+      min-height: 150px;
+      background: rgba(255,255,255,0.1);
+      margin-top: 0.5rem;
+    }
+    
+    .timeline-weeks {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+    
+    .timeline-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    
+    .timeline-items {
+      list-style: none;
+    }
+    
+    .timeline-items li {
+      padding: 0.5rem 0;
+      color: var(--gray);
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .timeline-items li::before {
+      content: '•';
+      color: var(--primary);
+    }
+    
+    /* CTA Section */
+    .cta-section {
+      background: var(--dark);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(0,245,212,0.1) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    
+    .cta-title {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 900;
+      letter-spacing: -2px;
+      margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .cta-subtitle {
+      font-size: 1.2rem;
+      color: var(--gray);
+      max-width: 600px;
+      margin: 0 auto 3rem;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .cta-buttons {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .cta-btn {
+      padding: 1.25rem 3rem;
+      border-radius: 100px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .cta-btn.primary {
+      background: var(--gradient-1);
+      border: none;
+      color: var(--dark);
+    }
+    
+    .cta-btn.primary:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 20px 60px rgba(0,245,212,0.4);
+    }
+    
+    .cta-btn.secondary {
+      background: transparent;
+      border: 2px solid rgba(255,255,255,0.2);
+      color: var(--light);
+    }
+    
+    .cta-btn.secondary:hover {
+      border-color: var(--primary);
+      background: rgba(0,245,212,0.1);
+    }
+    
+    .guarantees {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      margin-top: 4rem;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .guarantee {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+    
+    .guarantee-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(0,245,212,0.1);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+    }
+    
+    /* Footer */
+    .footer {
+      padding: 3rem 4rem;
+      background: var(--darker);
+      border-top: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .footer-logo {
+      font-size: 1.25rem;
+      font-weight: 800;
+      background: var(--gradient-1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .footer-text {
+      color: var(--gray);
+      font-size: 0.85rem;
+      text-align: center;
+    }
+    
+    .footer-badges {
+      display: flex;
+      gap: 1rem;
+    }
+    
+    .footer-badge {
+      padding: 0.5rem 1rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px;
+      font-size: 0.75rem;
+      color: var(--gray);
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav { padding: 1rem 2rem; }
+      section { padding: 4rem 1.5rem; }
+      .hero { padding: 6rem 1.5rem 3rem; }
+      .hero-stats { gap: 1rem; }
+      .stat-card { min-width: 140px; padding: 1.5rem; }
+      .stat-value { font-size: 2.5rem; }
+      .comparison-grid { grid-template-columns: 1fr; }
+      .services-header { flex-direction: column; align-items: flex-start; }
+      .footer { padding: 2rem; flex-direction: column; text-align: center; }
+      .guarantees { gap: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="logo">GobApp<span>Municipal</span></div>
+    <button class="nav-cta">Agenda Demo →</button>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-badge">Plataforma de Gobierno Digital</div>
+    <h1 class="hero-title">
+      La gestión municipal<br>
+      <span class="gradient">del futuro, hoy.</span>
+    </h1>
+    <p class="hero-subtitle">
+      Plataforma integral que conecta ciudadanos, administración y equipos de campo 
+      para transformar los servicios públicos municipales.
+    </p>
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="stat-value"><span class="counter" data-target="50">0</span><span class="stat-suffix">%</span></div>
+        <div class="stat-label">Menos tiempos</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">+<span class="counter" data-target="30">0</span><span class="stat-suffix">%</span></div>
+        <div class="stat-label">Ahorro operativo</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value"><span class="counter" data-target="8">0</span></div>
+        <div class="stat-label">Servicios integrados</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem Section -->
+  <section class="problem-section" id="problem">
+    <div class="section-label">La realidad actual</div>
+    <h2 class="section-title">El problema que resolvemos</h2>
+    <p class="section-subtitle">
+      Los municipios mexicanos enfrentan una crisis de eficiencia en la prestación de servicios públicos
+    </p>
+    <div class="problem-grid">
+      <div class="problem-card">
+        <div class="problem-stat">72hrs</div>
+        <h3>Tiempo de verificación</h3>
+        <p>Para verificar un solo pago de servicios. Los ciudadanos esperan días para trámites simples.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-stat">4-5</div>
+        <h3>Funcionarios por trámite</h3>
+        <p>Necesarios para procesar una sola solicitud. Recursos humanos desperdiciados en burocracia.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-stat">11.3%</div>
+        <h3>Adopción digital</h3>
+        <p>Promedio en municipios mexicanos. Datos dispersos en Excel, papel y sistemas aislados.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-stat">0%</div>
+        <h3>Visibilidad ciudadana</h3>
+        <p>Sin forma de conocer el estatus de reportes. Órdenes en papel sin trazabilidad.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solution Section -->
+  <section class="solution-section" id="solution">
+    <div class="section-label">Nuestra propuesta</div>
+    <h2 class="section-title">Una plataforma, tres interfaces</h2>
+    <p class="section-subtitle">
+      Conectamos todos los actores del ecosistema municipal en tiempo real
+    </p>
+    <div class="solution-grid">
+      <div class="solution-card">
+        <div class="solution-icon">📱</div>
+        <h3>App Ciudadana</h3>
+        <p>Para los vecinos del municipio</p>
+        <ul class="solution-features">
+          <li>Reportes con foto y GPS</li>
+          <li>Seguimiento en tiempo real</li>
+          <li>Pagos seguros en línea</li>
+          <li>Notificaciones automáticas</li>
+          <li>Calificación del servicio</li>
+        </ul>
+      </div>
+      <div class="solution-card">
+        <div class="solution-icon">👷</div>
+        <h3>App Cuadrillas</h3>
+        <p>Para equipos de campo</p>
+        <ul class="solution-features">
+          <li>Recepción de órdenes</li>
+          <li>Navegación GPS integrada</li>
+          <li>Evidencia fotográfica</li>
+          <li>Registro de materiales</li>
+          <li>Actualización de estatus</li>
+        </ul>
+      </div>
+      <div class="solution-card">
+        <div class="solution-icon">📊</div>
+        <h3>Dashboard Admin</h3>
+        <p>Para el gobierno</p>
+        <ul class="solution-features">
+          <li>Gestión de órdenes</li>
+          <li>Control de pagos</li>
+          <li>Control de inventarios</li>
+          <li>Mapas de calor</li>
+          <li>Reportes e indicadores</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="services-section" id="services">
+    <div class="services-header">
+      <div>
+        <div class="section-label">Artículo 115 Constitucional</div>
+        <h2 class="section-title">8 Servicios Integrados</h2>
+        <p class="section-subtitle">Una sola plataforma para cumplir con todas las obligaciones municipales</p>
+      </div>
+      <div class="services-badge">
+        <span>⚡</span> Modular: activa solo lo que necesitas
+      </div>
+    </div>
+    <div class="services-grid" id="servicesGrid">
+      <!-- Services will be inserted by JavaScript -->
+    </div>
+  </section>
+
+  <!-- Comparison Section -->
+  <section class="comparison-section" id="comparison">
+    <div class="section-label">Cumplimiento legal</div>
+    <h2 class="section-title">Antes vs Después</h2>
+    <p class="section-subtitle">
+      Transforma procesos manuales en gestión digital con trazabilidad completa
+    </p>
+    <div class="comparison-grid" id="comparisonGrid">
+      <!-- Comparisons will be inserted by JavaScript -->
+    </div>
+    <div class="comparison-note">
+      <span>✓</span> GobApp genera evidencia documental automática para auditorías y cumplimiento normativo
+    </div>
+  </section>
+
+  <!-- Success Section -->
+  <section class="success-section" id="success">
+    <div class="section-label">Resultados comprobados</div>
+    <h2 class="section-title">Casos de éxito en México</h2>
+    <p class="section-subtitle">Resultados verificables y documentados</p>
+    <div class="success-grid">
+      <div class="success-card">
+        <div class="success-location">Ciudad de México</div>
+        <h3>Sistema de Gestión Integral</h3>
+        <div class="success-stats">
+          <div class="success-stat-item">
+            <div class="success-stat-value">$2,200M</div>
+            <div class="success-stat-label">Ahorro anual</div>
+          </div>
+          <div class="success-stat-item">
+            <div class="success-stat-value">78%</div>
+            <div class="success-stat-label">Reducción tiempos</div>
+          </div>
+        </div>
+        <div class="success-highlights">
+          <div class="success-highlight">9.2M habitantes beneficiados</div>
+          <div class="success-highlight">16 alcaldías conectadas</div>
+          <div class="success-highlight">Cumplimiento NOM-127-SSA1</div>
+          <div class="success-highlight">Integración con CONAGUA</div>
+        </div>
+      </div>
+      <div class="success-card">
+        <div class="success-location">Querétaro</div>
+        <h3>Municipio Digital</h3>
+        <div class="success-stats">
+          <div class="success-stat-item">
+            <div class="success-stat-value">85%</div>
+            <div class="success-stat-label">Satisfacción</div>
+          </div>
+          <div class="success-stat-item">
+            <div class="success-stat-value">45%</div>
+            <div class="success-stat-label">Más eficiencia</div>
+          </div>
+        </div>
+        <div class="success-highlights">
+          <div class="success-highlight">Premio INAFED Innovación 2023</div>
+          <div class="success-highlight">8 servicios 100% digitalizados</div>
+          <div class="success-highlight">Cumple NOM-161-SEMARNAT</div>
+          <div class="success-highlight">1.2M ciudadanos activos</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline Section -->
+  <section class="timeline-section" id="timeline">
+    <div class="section-label">Plan de implementación</div>
+    <h2 class="section-title">18 Semanas a Producción</h2>
+    <p class="section-subtitle">Metodología Agile con entregas incrementales</p>
+    <div class="timeline-container" id="timelineContainer">
+      <!-- Timeline will be inserted by JavaScript -->
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section" id="cta">
+    <h2 class="cta-title">
+      ¿Listo para transformar<br>tu municipio?
+    </h2>
+    <p class="cta-subtitle">
+      Agenda una demo personalizada de 45 minutos y descubre cómo GobApp 
+      puede revolucionar la gestión de tu administración.
+    </p>
+    <div class="cta-buttons">
+      <button class="cta-btn primary">Agenda tu Demo Hoy →</button>
+      <button class="cta-btn secondary">Descargar Brochure</button>
+    </div>
+    <div class="guarantees">
+      <div class="guarantee">
+        <div class="guarantee-icon">🛡️</div>
+        <span>Soporte 24/7</span>
+      </div>
+      <div class="guarantee">
+        <div class="guarantee-icon">☁️</div>
+        <span>100% en la nube</span>
+      </div>
+      <div class="guarantee">
+        <div class="guarantee-icon">📋</div>
+        <span>Alineado a INAFED</span>
+      </div>
+      <div class="guarantee">
+        <div class="guarantee-icon">🔒</div>
+        <span>Datos bajo tu control</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-logo">GobApp</div>
+    <div class="footer-text">Tecnología que acompaña y respalda una gestión municipal orientada a resultados</div>
+    <div class="footer-badges">
+      <div class="footer-badge">Art. 115 Constitucional</div>
+      <div class="footer-badge">Multi-plataforma</div>
+    </div>
+  </footer>
+
+  <script>
+    // Data
+    const services = [
+      { number: 1, icon: '💧', title: 'Agua Potable', description: 'Gestión integral del servicio de agua', features: ['Padrón digital', 'IoT', 'Facturación'] },
+      { number: 2, icon: '💡', title: 'Alumbrado', description: 'Control inteligente de luminarias', features: ['Inventario GPS', 'Preventivo', 'Análisis CFE'] },
+      { number: 3, icon: '🛒', title: 'Mercados', description: 'Administración de mercados públicos', features: ['Locatarios', 'Cobros', 'Inspecciones'] },
+      { number: 4, icon: '♻️', title: 'Recolección', description: 'Optimización de rutas de basura', features: ['GPS tiempo real', 'Básculas', 'Rutas IA'] },
+      { number: 5, icon: '🛣️', title: 'Calles y Parques', description: 'Mantenimiento de vialidades', features: ['Bacheo', 'Áreas verdes', 'Reportes'] },
+      { number: 6, icon: '⚰️', title: 'Panteones', description: 'Catastro digital de cementerios', features: ['Fosas', 'Pagos online', 'Búsqueda'] },
+      { number: 7, icon: '🥩', title: 'Rastro', description: 'Trazabilidad de productos cárnicos', features: ['Inspección', 'Guías', 'NOM'] },
+      { number: 8, icon: '🛡️', title: 'Seguridad', description: 'Coordinación de seguridad pública', features: ['Pánico', 'GPS patrullas', 'Mapas calor'] },
+    ];
+
+    const comparisons = [
+      { title: 'Agua Potable', icon: '💧', without: 'Padrón en Excel, sin medición de volúmenes, auditorías pendientes', withApp: 'Padrón digital, lecturas automáticas IoT, facturación y trazabilidad completa', norms: 'NOM-127-SSA1, Ley de Aguas Art. 44' },
+      { title: 'Alumbrado', icon: '💡', without: 'Sin inventario, reparaciones sin registro, consumo desconocido', withApp: 'Inventario GPS, mantenimiento preventivo, análisis de consumo CFE', norms: 'NOM-013-ENER, NOM-031-ENER' },
+      { title: 'Recolección', icon: '♻️', without: 'Rutas en papel, sin control de tonelaje, quejas sin seguimiento', withApp: 'GPS tiempo real, básculas integradas, rutas optimizadas con IA', norms: 'LGPGIR Art. 96, NOM-083-SEMARNAT' },
+    ];
+
+    const timeline = [
+      { weeks: 'Sem 1-2', title: 'Diagnóstico', items: ['Análisis de procesos', 'Mapeo normativo', 'Definición de alcance'], icon: '🔍' },
+      { weeks: 'Sem 3-6', title: 'Desarrollo Fase 1', items: ['App Ciudadana v1', 'Módulo reportes', 'Integración básica'], icon: '⚡' },
+      { weeks: 'Sem 7-12', title: 'Desarrollo Fase 2', items: ['App Cuadrillas', 'Dashboard Admin', 'Pasarela de pagos'], icon: '🚀' },
+      { weeks: 'Sem 13-18', title: 'Piloto y Go-Live', items: ['Despliegue controlado', 'Capacitación', 'Lanzamiento oficial'], icon: '✨' },
+    ];
+
+    // Render Services
+    const servicesGrid = document.getElementById('servicesGrid');
+    services.forEach((service, index) => {
+      servicesGrid.innerHTML += `
+        <div class="service-card" style="transition-delay: ${index * 0.05}s" onclick="this.classList.toggle('expanded')">
+          <div class="service-number">${service.number.toString().padStart(2, '0')}</div>
+          <div class="service-icon">${service.icon}</div>
+          <h3 class="service-title">${service.title}</h3>
+          <p class="service-desc">${service.description}</p>
+          <div class="service-features">
+            ${service.features.map(f => `<span class="feature-tag">${f}</span>`).join('')}
+          </div>
+          <div class="expand-indicator">+</div>
+        </div>
+      `;
+    });
+
+    // Render Comparisons
+    const comparisonGrid = document.getElementById('comparisonGrid');
+    comparisons.forEach((comp, index) => {
+      comparisonGrid.innerHTML += `
+        <div class="comparison-card" style="transition-delay: ${index * 0.1}s">
+          <div class="comparison-header">
+            <span class="comparison-icon">${comp.icon}</span>
+            <h3>${comp.title}</h3>
+          </div>
+          <div class="toggle-container">
+            <button class="toggle-btn active" onclick="toggleComparison(this, 'without')">Sin GobApp</button>
+            <button class="toggle-btn" onclick="toggleComparison(this, 'with')">Con GobApp</button>
+          </div>
+          <div class="comparison-content without">${comp.without}</div>
+          <div class="norms-badge" data-norms="${comp.norms}">
+            <span>✓</span> ${comp.norms}
+          </div>
+        </div>
+      `;
+    });
+
+    // Render Timeline
+    const timelineContainer = document.getElementById('timelineContainer');
+    timeline.forEach((item, index) => {
+      timelineContainer.innerHTML += `
+        <div class="timeline-item ${index === 0 ? 'active' : ''}" data-index="${index}">
+          <div class="timeline-marker">
+            <div class="timeline-icon">${item.icon}</div>
+            <div class="timeline-line"></div>
+          </div>
+          <div class="timeline-content">
+            <div class="timeline-weeks">${item.weeks}</div>
+            <h3 class="timeline-title">${item.title}</h3>
+            <ul class="timeline-items">
+              ${item.items.map(i => `<li>${i}</li>`).join('')}
+            </ul>
+          </div>
+        </div>
+      `;
+    });
+
+    // Toggle Comparison
+    function toggleComparison(btn, type) {
+      const card = btn.closest('.comparison-card');
+      const buttons = card.querySelectorAll('.toggle-btn');
+      const content = card.querySelector('.comparison-content');
+      const normsBadge = card.querySelector('.norms-badge');
+      const compIndex = Array.from(comparisonGrid.children).indexOf(card);
+      
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      
+      if (type === 'with') {
+        content.textContent = comparisons[compIndex].withApp;
+        content.classList.remove('without');
+        content.classList.add('with');
+        normsBadge.classList.add('visible');
+      } else {
+        content.textContent = comparisons[compIndex].without;
+        content.classList.remove('with');
+        content.classList.add('without');
+        normsBadge.classList.remove('visible');
+      }
+    }
+
+    // Animated Counters
+    function animateCounters() {
+      const counters = document.querySelectorAll('.counter');
+      counters.forEach(counter => {
+        const target = parseInt(counter.dataset.target);
+        const duration = 2000;
+        const start = 0;
+        const startTime = performance.now();
+        
+        function update(currentTime) {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const easeOut = 1 - Math.pow(1 - progress, 3);
+          counter.textContent = Math.floor(easeOut * target);
+          
+          if (progress < 1) {
+            requestAnimationFrame(update);
+          }
+        }
+        
+        requestAnimationFrame(update);
+      });
+    }
+
+    // Timeline Animation
+    let currentTimeline = 0;
+    setInterval(() => {
+      const items = document.querySelectorAll('.timeline-item');
+      items.forEach(item => item.classList.remove('active'));
+      currentTimeline = (currentTimeline + 1) % items.length;
+      items[currentTimeline].classList.add('active');
+    }, 3000);
+
+    // Scroll Animations
+    const observerOptions = {
+      threshold: 0.2,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('section').forEach(section => {
+      observer.observe(section);
+    });
+
+    // Counter Observer
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCounters();
+          counterObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    counterObserver.observe(document.querySelector('.hero-stats'));
+
+    // Nav Scroll Effect
+    window.addEventListener('scroll', () => {
+      const nav = document.getElementById('nav');
+      if (window.scrollY > 50) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
